@@ -3,25 +3,25 @@ import User from "../models/User.js"
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
-    const {fullName, email, password} = req.body
+    const { fullName, email, password } = req.body
 
-    try{
-        if(!fullName || !email || !password) {
-            return res.status(400).json({message: "All fields are required"});
+    try {
+        if (!fullName || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
         }
 
-        if(password.length < 6 ) {
-            return res.status(400).json({message: "Password must be at least 6 characters"});
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
 
         // Check if email is valid or not using Regex.
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(email)) {
+        if (!emailRegex.test(email)) {
             return res.status(400).json({ message: "Invaid Email format" });
         }
 
-        const user = await User.findOne({email});
-        if(user) return res.status(400).json({message: "Email already exists"})
+        const user = await User.findOne({ email });
+        if (user) return res.status(400).json({ message: "Email already exists" })
 
         // How to do password hashing
 
@@ -34,9 +34,15 @@ export const signup = async (req, res) => {
             password: hashedPassword,
         });
 
-        if(newUser) {
-            generateToken(newUser._id, res);
-            await newUser.save();
+        if (newUser) {
+            // before CR:
+            // generateToken(newUser._id, res);
+            // await newUser.save();
+
+            // After CR:
+            // Persist User first then issue with cookie.
+            const savedUser = await newUser.save();
+            generateToken(savedUser._id, res);
 
             res.status(201).json({
                 _id: newUser._id,
@@ -47,11 +53,11 @@ export const signup = async (req, res) => {
 
             // todo: send a welcome email to user.
         } else {
-            res.status(400).json({message: "Invalid User Data"});
+            res.status(400).json({ message: "Invalid User Data" });
         };
- 
+
     } catch (error) {
         console.log("Error in signup controller:", error);
-        res.status(500).json({message: "Internal server error"})
+        res.status(500).json({ message: "Internal server error" })
     }
 }
