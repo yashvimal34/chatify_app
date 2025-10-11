@@ -47,11 +47,15 @@ export const signup = async (req, res) => {
             const savedUser = await newUser.save();
             generateToken(savedUser._id, res);
 
+            // Return token as well to make testing with Postman easier
+            const token = generateToken(savedUser._id, res);
+
             res.status(201).json({
-                _id: newUser._id,
-                fullName: newUser.fullName,
-                email: newUser.email,
-                profilePic: newUser.profilPic,
+                _id: savedUser._id,
+                fullName: savedUser.fullName,
+                email: savedUser.email,
+                profilePic: savedUser.profilPic,
+                token,
             });
 
             // todo: send a welcome email to user.
@@ -87,13 +91,14 @@ export const login = async (req, res) => {
         const isCorrectPassword = await bcrypt.compare(password, user.password)
         if (!isCorrectPassword) return res.status(400).json({ message: "Invalid credentials" });
 
-        generateToken(user._id, res)
+        const token = generateToken(user._id, res)
 
         res.status(200).json({
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
             profilePic: user.profilPic,
+            token,
         });
     } catch (error) {
         console.error("Error in login controller", error);
