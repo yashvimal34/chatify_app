@@ -9,7 +9,7 @@ import { LoaderIcon } from "react-hot-toast";
 function LoginPage() {
 
     const [formData, setFormData] = useState({ email: "", password: "" })
-    const { login, isLogginIn } = useAuthStore()
+    const { login, isLoggingIn } = useAuthStore()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -65,8 +65,8 @@ function LoginPage() {
                                 </div>
 
                                 {/* Create Account Button */}
-                                <button className="auth-btn" type="submit" disabled={isLogginIn}>
-                                    {isLogginIn ? (
+                                <button className="auth-btn" type="submit" disabled={isLoggingIn}>
+                                    {isLoggingIn ? (
                                         <LoaderIcon className="w-5 h-5 animate-spin mx-auto" />
                                     ) : (
                                         "Sign In"
