@@ -5,7 +5,7 @@
 @property --border-angle {
     inherits: false;
     initial-value: 0deg;
-    syntax: "<angel>";
+  syntax: "<angle>";
 }
 
 .input { 
@@ -13,7 +13,7 @@
 }
 
 .auth-input-icon {
-  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5;
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5;
 }
 
 .auth-input-label {
@@ -32,4 +32,40 @@
 .auth-link {
   @apply px-4 py-2 inline-block bg-cyan-500/10 rounded-lg text-cyan-400
   hover:text-cyan-500 text-sm transition-colors;
+}
+
+/* Moving border line segments (top, right, bottom, left) */
+.border-seg {
+  position: absolute;
+  z-index: 5; /* sits above gradient border but below inner content */
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.border-seg .seg-runner {
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.95), transparent);
+  width: 30%;
+  height: 100%;
+}
+
+.border-seg.top { top: 0; left: 0; width: 100%; height: 3px; }
+.border-seg.top .seg-runner { animation: slideX 1600ms linear infinite; animation-delay: 0ms; }
+
+.border-seg.right { top: 0; right: 0; width: 3px; height: 100%; }
+.border-seg.right .seg-runner { width:100%; height:30%; animation: slideY 1600ms linear infinite; animation-delay: 400ms; }
+
+.border-seg.bottom { bottom: 0; left: 0; width: 100%; height: 3px; }
+.border-seg.bottom .seg-runner { animation: slideX 1600ms linear infinite reverse; animation-delay: 800ms; }
+
+.border-seg.left { top: 0; left: 0; width: 3px; height: 100%; }
+.border-seg.left .seg-runner { width:100%; height:30%; animation: slideY 1600ms linear infinite reverse; animation-delay: 1200ms; }
+
+@keyframes slideX {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+
+@keyframes slideY {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(220%); }
 }
