@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useStoreAuth.js";
 import BorderAnimatedContainer from "../components/BorderAnimatedContainer.jsx";
-import { MailIcon, MessageCircleIcon, UserIcon } from "lucide-react";
+import { LockIcon, MailIcon, MessageCircleIcon, UserIcon } from "lucide-react";
 import { LoaderIcon } from "react-hot-toast";
 import { Link } from "react-router";
 
@@ -16,12 +16,12 @@ function SignUpPage() {
         signup(formData);
     }
 
-    return <div className="w-full flex items-center justify-center p-4 bg-slate-900">
-        <div className="relative w-full max-w-6xl md:h-[800px] h-[650px]">
+    return <div className="min-h-screen w-full flex items-center justify-center p-6 bg-slate-900 overflow-hidden">
+        <div className="relative w-full max-w-6xl h-[calc(100vh-3rem)]">
             <BorderAnimatedContainer>
-                <div className="w-full flex flex-col md:flex-row">
+                <div className="w-full flex flex-col md:flex-row h-full">
                     {/* Form Column which is in left side */}
-                    <div className="md:w-1/2 p-8 fkex item-center justify-center md:border-r border-slate-600/30">
+                    <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30 h-full">
                         <div className="w-full max-w-md">
                             {/* Heading Text */}
                             <div className="text-center mb-8">
@@ -66,13 +66,13 @@ function SignUpPage() {
                                 <div>
                                     <label className="auth-input-label">Password</label>
                                     <div className="relative">
-                                        <MailIcon className="auth-input-icon" />
+                                        <LockIcon className="auth-input-icon" />
 
                                         <input type="password"
                                             value={formData.password}
                                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                             className="input"
-                                            placeholder="Enter Your password\"
+                                            placeholder="Enter your password"
                                         />
 
                                     </div>
@@ -81,7 +81,7 @@ function SignUpPage() {
                                 {/* Create Account Button */}
                                 <button className="auth-btn" type="submit" disabled={isSigningUp}>
                                     {isSigningUp ? (
-                                        <LoaderIcon className="w-full h-5 animate-spin text-center" />
+                                        <LoaderIcon className="w-5 h-5 animate-spin mx-auto" />
                                     ) : (
                                         "Create Account"
                                     )}
@@ -99,7 +99,7 @@ function SignUpPage() {
                     </div>
 
                     {/* Image in Right Side */}
-                    <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">
+                    <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent h-full">
                         <div>
                             <img
                                 src="/signup.png"
