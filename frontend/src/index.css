@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent page-level scrolling globally; use internal scroll containers where needed */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* hide native scrollbars (visual) while retaining internal scrolling when used) */
+/* WebKit browsers */
+::-webkit-scrollbar { width: 0; height: 0; }
+/* Firefox */
+html { scrollbar-width: none; }
+
 @property --border-angle {
     inherits: false;
     initial-value: 0deg;

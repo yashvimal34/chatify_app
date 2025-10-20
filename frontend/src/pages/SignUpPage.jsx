@@ -17,12 +17,12 @@ function SignUpPage() {
     }
 
     return <div className="min-h-screen w-full flex items-center justify-center p-6 bg-slate-900 overflow-hidden">
-        <div className="relative w-full max-w-6xl h-[calc(100vh-3rem)]">
+        <div className="relative w-full max-w-3xl md:max-w-6xl md:h-[calc(100vh-3rem)] h-[calc(100vh-3rem)] mx-auto">
             <BorderAnimatedContainer>
                 <div className="w-full flex flex-col md:flex-row h-full">
                     {/* Form Column which is in left side */}
                     <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30 h-full">
-                        <div className="w-full max-w-md">
+                        <div className="w-full max-w-md mx-auto">
                             {/* Heading Text */}
                             <div className="text-center mb-8">
                                 <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-4" />
