@@ -11,7 +11,7 @@ function BorderAnimatedContainer({ children }) {
             <div className="border-seg bottom"><div className="seg-runner" /></div>
             <div className="border-seg left"><div className="seg-runner" /></div>
 
-            <div className="relative w-full h-full rounded-2xl bg-[linear-gradient(45deg,#172033,theme(colors.slate.800)_50%,#172033)] flex">
+            <div className="relative w-full h-full rounded-2xl bg-[linear-gradient(45deg,#172033,theme(colors.slate.800)_50%,#172033)] flex overflow-hidden">
                 {children}
             </div>
         </div>
