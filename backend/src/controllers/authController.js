@@ -54,7 +54,7 @@ export const signup = async (req, res) => {
                 _id: savedUser._id,
                 fullName: savedUser.fullName,
                 email: savedUser.email,
-                profilePic: savedUser.profilPic,
+                profilePic: savedUser.profilePic,
                 token,
             });
 
@@ -97,7 +97,7 @@ export const login = async (req, res) => {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
-            profilePic: user.profilPic,
+            profilePic: user.profilePic,
             token,
         });
     } catch (error) {
@@ -113,14 +113,14 @@ export const logout = (_, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { profilPic } = req.body;
-        if (!profilPic) return res.status(400).json({ message: "Profile Pic is required" });
+        const { profilePic } = req.body;
+        if (!profilePic) return res.status(400).json({ message: "Profile Pic is required" });
 
         const userId = req.user._id;
 
-        const uploadResponse = await cloudinary.uploader.upload(profilPic);
+        const uploadResponse = await cloudinary.uploader.upload(profilePic);
 
-        const updatedUser = await User.findByIdAndUpdate(userId, { profilPic: uploadResponse.secure_url }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true });
 
         res.status(200).json(updatedUser)
     } catch (error) {
