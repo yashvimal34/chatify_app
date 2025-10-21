@@ -17,7 +17,7 @@ router.post("/login", login);
 router.post("/logout", logout);
 
 // Update Profile route
-router.put("update-profile", protectRoute, updateProfile);
+router.put("/update-profile", protectRoute, updateProfile);
 
 // get Route:
 router.get("/check", protectRoute, (req, res) => res.status(200).json(req.user));

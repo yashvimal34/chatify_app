@@ -17,14 +17,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6,
     },
-    
-    profilPic: {
+
+    profilePic: {
         type: String,
         default: ""
     },
 },
- {timestamps: true} // This basically check when user last login or createdAt or Updated Profile.
+    { timestamps: true } // This basically check when user last login or createdAt or Updated Profile.
 );
 
-const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 export default User;
