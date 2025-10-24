@@ -47,7 +47,16 @@ export const signup = async (req, res) => {
             const savedUser = await newUser.save();
             generateToken(savedUser._id, res);
 
-            // Return token as well to make testing with Postman easier
+            // Generate token and send response
+            const authToken = generateToken(savedUser._id, res);
+
+            res.status(201).json({
+                _id: savedUser._id,
+                fullName: savedUser.fullName,
+                email: savedUser.email,
+                profilePic: savedUser.profilePic,
+                token: authToken
+            });
             const token = generateToken(savedUser._id, res);
 
             res.status(201).json({
