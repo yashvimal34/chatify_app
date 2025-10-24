@@ -1,4 +1,5 @@
 import express from 'express';
+import { createServer } from 'http';  // added just
 import path from "path";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js"
@@ -6,9 +7,9 @@ import messageRoutes from "./routes/messageRoutes.js"
 import { connectDB } from './lib/db.js';
 import { ENV } from './lib/env.js';
 import cors from "cors";
+import { app, server, initializeSocket } from './lib/socket.js';  // added just
 
 
-const app = express();
 const __dirname = path.resolve();
 
 const PORT = ENV.PORT || 3000
@@ -37,7 +38,10 @@ if (ENV.NODE_ENV === "production") {
 
 }
 
-app.listen(PORT, () => {
+// Initialize socket.io
+initializeSocket();  // added just
+
+server.listen(PORT, () => {
     console.log("server running:" + PORT)
     connectDB()
 })
