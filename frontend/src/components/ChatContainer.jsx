@@ -25,7 +25,7 @@ function ChatContainer() {
     return (
         <div className="flex flex-col h-screen">
             <ChatHeader />
-            <div className="flex-1 px-6 overflow-y-auto py-4 bg-[var(--bg-primary)]">
+            <div className="flex-1 px-6 overflow-y-auto py-4 pb-40 sm:pb-4 bg-[var(--bg-primary)]">
                 {messages.length > 0 && !isMessagesLoading ? (
                     <div className="max-w-6xl w-full mx-auto space-y-6">
                         {messages.map(msg => (

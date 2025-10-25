@@ -48,7 +48,7 @@ function MessageInput() {
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
     return (
-        <div className="p-4 border-t border-[var(--border-color)] relative z-30">
+        <div className="fixed bottom-0 left-0 right-0 sm:relative p-4 border-t border-[var(--border-color)] z-50 bg-[var(--bg-primary)]" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}>
             {imagePreview && (
                 <div className="max-w-3xl mx-auto mb-3 flex items-center">
                     <div className="relative">
@@ -86,7 +86,7 @@ function MessageInput() {
                     className="hidden"
                 />
 
-                <div className="flex gap-2 sm:gap-4">
+                <div className="flex gap-2 sm:gap-4 z-50">
                     <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
