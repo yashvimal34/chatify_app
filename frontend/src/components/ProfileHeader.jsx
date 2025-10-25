@@ -28,7 +28,7 @@ function ProfileHeader() {
     }
 
     return (
-        <div className="p-6 border-b border-slate-700/50">
+        <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-700/50">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     {/* Avatar */}
@@ -56,11 +56,11 @@ function ProfileHeader() {
 
                     {/* Username & oneline text */}
                     <div>
-                        <h3 className="text-slate-200 font-medium text-base max-w-[180px] truncate">
+                        <h3 className="text-[var(--name-text)] font-medium text-sm md:text-base max-w-[180px] truncate">
                             {authUser.fullName}
                         </h3>
 
-                        <p className="text-slate-400 text-xs">Online</p>
+                        <p className="text-[var(--text-secondary)] text-xs">Online</p>
 
                     </div>
                 </div>
@@ -68,14 +68,14 @@ function ProfileHeader() {
                 {/* Buttons */}
                 <div className="flex-gap-4 items-center">
                     {/* Logout Button */}
-                    <button className="text-slate-400 hover:text-slate-200 transition-colors" onClick={logout}>
+                    <button className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" onClick={logout}>
                         <LogOutIcon className="size-5" />
                     </button>
 
                     {/* Sound Toggel Button */}
                     {/* SOUND TOGGLE BTN */}
                     <button
-                        className="text-slate-400 hover:text-slate-200 transition-colors"
+                        className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                         onClick={() => {
                             // play click sound before toggling
                             mouseClickSound.currentTime = 0; // reset to start
