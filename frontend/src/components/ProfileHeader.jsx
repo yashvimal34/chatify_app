@@ -28,12 +28,12 @@ function ProfileHeader() {
     }
 
     return (
-        <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-700/50">
+        <div className="p-4 md:p-6 border-b border-[var(--border-color)] bg-[var(--bg-secondary)]">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     {/* Avatar */}
                     <div className="avatar online">
-                        <button className="size-14 rounded-full overflow-hidden relative group" onClick={() => fileInputRef.current.click()}>
+                        <button className="size-12 md:size-14 rounded-full overflow-hidden relative group" onClick={() => fileInputRef.current.click()}>
                             <img
                                 src={selectedImg || authUser.profilePic || "/avatar.png"}
                                 alt="User Image"
