@@ -48,7 +48,7 @@ function MessageInput() {
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
     return (
-        <div className="p-4 border-t border-[var(--border-color)]">
+        <div className="p-4 border-t border-[var(--border-color)] relative z-30">
             {imagePreview && (
                 <div className="max-w-3xl mx-auto mb-3 flex items-center">
                     <div className="relative">
