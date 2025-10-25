@@ -24,7 +24,7 @@ export function emitToUser(userId, event, payload) {
 const initializeSocket = () => {
     io = new Server(server, {
         cors: {
-            origin: ENV.CLIENT_URL || "http://localhost:5173",
+            origin: [ENV.CLIENT_URL || "http://localhost:5173", "https://sevalla.com"],
             credentials: true,
         },
     });
