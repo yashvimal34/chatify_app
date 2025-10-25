@@ -11,6 +11,16 @@ let io;
 
 const onlineUsers = new Map(); // userId -> socketId
 
+// Emit an event to a specific user if they are online.
+export function emitToUser(userId, event, payload) {
+    if (!userId) return false;
+    const socketId = onlineUsers.get(String(userId));
+    if (socketId && io) {
+        io.to(socketId).emit(event, payload);
+        return true;
+    }
+    return false;
+}
 const initializeSocket = () => {
     io = new Server(server, {
         cors: {

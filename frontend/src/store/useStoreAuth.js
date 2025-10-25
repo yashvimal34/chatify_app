@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js"
 import toast from "react-hot-toast";
 import io from "socket.io-client";
+import { useChatStore } from "./useChatStore";
 
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
 
@@ -121,6 +122,42 @@ export const useAuthStore = create((set, get) => ({
         socket.on("connect", () => {
             console.log("Socket connected successfully");
             set({ socket });
+
+            // Ensure we don't register duplicate listeners
+            socket.off("newMessage");
+
+            // Listen for real-time incoming messages and forward to chat store
+            socket.on("newMessage", (message) => {
+                console.log("Received newMessage via socket:", message);
+                try {
+                    // Append message to chat store so UI updates
+                    useChatStore.getState().appendMessage(message);
+
+                    // Play notification sound if enabled and the message is not from current user
+                    const isSoundEnabled = useChatStore.getState().isSoundEnabled;
+                    const { authUser } = get();
+                    const senderId = String(message.senderId || "");
+                    const myId = authUser?._id ? String(authUser._id) : null;
+
+                    if (isSoundEnabled && myId && senderId !== myId) {
+                        try {
+                            const audio = new Audio("/sounds/notification.mp3");
+                            // some browsers require promise handling for play()
+                            const playPromise = audio.play();
+                            if (playPromise && typeof playPromise.then === "function") {
+                                playPromise.catch((e) => {
+                                    // ignore play errors (autoplay policy, etc.)
+                                    console.debug("Notification sound play error:", e.message || e);
+                                });
+                            }
+                        } catch (e) {
+                            console.debug("Could not play notification sound:", e.message || e);
+                        }
+                    }
+                } catch (err) {
+                    console.error("Error handling incoming message:", err);
+                }
+            });
         });
 
         // listen for online user events

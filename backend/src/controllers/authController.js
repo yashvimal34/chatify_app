@@ -67,7 +67,6 @@ export const signup = async (req, res) => {
                 token,
             });
 
-            // todo: send a welcome email to user.
             try {
                 await sendWelcomeEmail(savedUser.email, savedUser.fullName, ENV.CLIENT_URL);
             } catch (error) {
