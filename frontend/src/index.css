@@ -79,9 +79,9 @@ html, body, #root {
 
 /* hide native scrollbars (visual) while retaining internal scrolling when used) */
 /* WebKit browsers */
-::-webkit-scrollbar { width: 0; height: 0; }
+/* ::-webkit-scrollbar { width: 0; height: 0; } */
 /* Firefox */
-html { scrollbar-width: none; }
+/* html { scrollbar-width: none; } */
 
 @property --border-angle {
     inherits: false;
@@ -89,31 +89,47 @@ html { scrollbar-width: none; }
   syntax: "<angle>";
 }
 
-.input { 
-  @apply w-full bg-slate-800/50 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-slate-200 placeholder-slate-400 focus:ring-2 focus:ring-cyan-500 focus:border-transparent;
+.input {
+  @apply w-full border rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:border-transparent;
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
 }
 
 .auth-input-icon {
-  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5;
+  @apply absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5;
+  color: var(--text-secondary);
 }
 
 .auth-input-label {
-  @apply block text-sm font-medium text-slate-300 mb-2;
+  @apply block text-sm font-medium mb-2;
+  color: var(--text-secondary);
 }
 
 .auth-badge {
-  @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-cyan-500/20 text-cyan-300;
+  @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full;
+  background-color: rgba(6,182,212,0.12); /* subtle cyan bg */
+  color: var(--accent-primary);
 }
 
 .auth-btn {
-  @apply w-full bg-cyan-500 text-white rounded-lg py-2.5 font-medium
-  hover:bg-cyan-600 focus:ring-2 focus:ring-cyan-500;
+  @apply w-full rounded-lg py-2.5 font-medium;
+  background-color: var(--accent-primary);
+  color: var(--message-sent-text);
 }
+.auth-btn:hover { background-color: var(--accent-secondary); }
+.auth-btn:focus { box-shadow: 0 0 0 3px rgba(6,182,212,0.18); }
 
 .auth-link {
-  @apply px-4 py-2 inline-block bg-cyan-500/10 rounded-lg text-cyan-400
-  hover:text-cyan-500 text-sm transition-colors;
+  @apply px-4 py-2 inline-block rounded-lg text-sm transition-colors;
+  color: var(--accent-primary);
+  background-color: transparent;
 }
+.auth-link:hover { color: var(--accent-secondary); }
 
 /* Moving border line segments (top, right, bottom, left) */
 .border-seg {
