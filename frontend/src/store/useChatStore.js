@@ -86,4 +86,17 @@ export const useChatStore = create((set, get) => ({
             toast.error(error.response?.data?.message || "Something Went Wrong");
         }
     },
+    // Append an incoming message (from socket) to the current conversation if it belongs to it
+    appendMessage: (message) => {
+        const { selectedUser, messages } = get();
+        if (!selectedUser) return;
+
+        const partnerId = selectedUser._id?.toString();
+        const senderId = message.senderId?.toString?.() || String(message.senderId);
+        const receiverId = message.receiverId?.toString?.() || String(message.receiverId);
+
+        if (senderId === partnerId || receiverId === partnerId) {
+            set({ messages: [...messages, message] });
+        }
+    },
 }));

@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Message from "../models/Message.js";
+import { emitToUser } from "../lib/socket.js";
 import cloudinary from "../lib/cloudinary.js";
 
 export const getAllContacts = async (req, res) => {
@@ -72,7 +73,12 @@ export const sendMessage = async (req, res) => {
 
         await newMessage.save();
 
-        // todo: send message in real time if user is online and we are going to implement with socket.io. 
+        // Send message in real time to receiver if they're online
+        try {
+            emitToUser(receiverId, "newMessage", newMessage);
+        } catch (err) {
+            console.log("Error emitting realtime message:", err.message);
+        }
 
         res.status(201).json(newMessage);
     } catch (error) {
