@@ -23,11 +23,14 @@ function ChatContainer() {
     }, [messages]);
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-[100dvh] md:h-screen relative">
             <ChatHeader />
-            <div className="flex-1 px-6 overflow-y-auto py-4 pb-40 sm:pb-4 bg-[var(--bg-primary)]">
+            <div
+                className="flex-1 px-4 md:px-6 overflow-y-auto overscroll-contain pt-[60px] md:pt-[70px] pb-36 md:pb-24 bg-[var(--bg-primary)]"
+                style={{ WebkitOverflowScrolling: 'touch' }}
+            >
                 {messages.length > 0 && !isMessagesLoading ? (
-                    <div className="max-w-6xl w-full mx-auto space-y-6">
+                    <div className="max-w-2xl md:max-w-4xl w-full mx-auto space-y-4 md:space-y-6">
                         {messages.map(msg => (
                             <div key={msg._id} className={`chat ${msg.senderId === authUser._id ? "chat-end" : "chat-start"}`}>
                                 <div className={`chat-bubble relative ${msg.senderId === authUser._id
