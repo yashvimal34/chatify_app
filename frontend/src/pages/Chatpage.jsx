@@ -42,7 +42,7 @@ function ChatPage() {
                 {/* Fixed settings button for small screens */}
                 <button
                     onClick={() => useSettingsStore.getState().toggleSettings()}
-                    className="sm:hidden fixed left-4 bottom-4 z-50 flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                    className="sm:hidden fixed left-4 bottom-4 z-[100] flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] pointer-events-auto"
                     aria-label="Settings"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
