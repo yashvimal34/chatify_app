@@ -17,24 +17,24 @@ function LoginPage() {
         login(formData);
     }
 
-    return <div className="min-h-screen w-full flex items-center justify-center p-6 bg-slate-900 overflow-hidden">
+    return <div className="min-h-screen w-full flex items-center justify-center p-6 bg-[var(--bg-primary)] overflow-hidden">
         <div className="relative w-full max-w-6xl h-[calc(100vh-3rem)]">
             <BorderAnimatedContainer>
                 <div className="w-full flex flex-col md:flex-row h-full">
                     {/* Form Column which is in left side */}
-                    <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30 h-full">
+                    <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-[var(--border-color)] h-full">
                         <div className="w-full max-w-md">
                             {/* Heading Text */}
                             <div className="text-center mb-8">
-                                <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-4" />
-                                <h2 className="text-2xl font-bold text-slate-200 mb-2">Welcome Back</h2>
-                                <p className="text-slate-400">Login to access your account</p>
+                                <MessageCircleIcon className="w-12 h-12 mx-auto text-[var(--text-secondary)] mb-4 text-white" />
+                                <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2 text-white">Welcome Back</h2>
+                                <p className="text-white">Login to access your account</p>
                             </div>
                             {/* Form  */}
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 {/* Email Input  */}
                                 <div>
-                                    <label className="auth-input-label">Email</label>
+                                    <label className="auth-input-label"><span className="text-white">Email</span></label>
                                     <div className="relative">
                                         <MailIcon className="auth-input-icon" />
 
@@ -50,7 +50,7 @@ function LoginPage() {
 
                                 {/* Password Input  */}
                                 <div>
-                                    <label className="auth-input-label">Password</label>
+                                    <label className="auth-input-label"><span className="text-white">Password</span></label>
                                     <div className="relative">
                                         <LockIcon className="auth-input-icon" />
 
@@ -85,7 +85,7 @@ function LoginPage() {
                     </div>
 
                     {/* Image in Right Side */}
-                    <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent h-full">
+                    <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 h-full bg-[var(--bg-secondary)]">
                         <div>
                             <img
                                 src="/login.png"
@@ -93,7 +93,7 @@ function LoginPage() {
                                 className="w-full h-auto object-contain"
                             />
                             <div className="mt-6 text-center">
-                                <h3 className="text-xl font-medium text-cyan-400">Connect anytime and anywhere</h3>
+                                <h3 className="text-xl font-medium text-[var(--accent-primary)]">Connect anytime and anywhere</h3>
 
                                 <div className="mt-4 flex justify-center gap-4">
                                     <span className="auth-badge">Free</span>
