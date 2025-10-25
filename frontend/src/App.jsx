@@ -26,7 +26,7 @@ function App() {
   if (isCheckingAuth) return <PageLoader />;
 
   return (
-    <div className="fixed inset-0 bg-[var(--bg-primary)] overflow-hidden">
+    <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* DECORATORS - GRID BG & GLOW SHAPES */}
       <div className="fixed inset-0 bg-[linear-gradient(to_right,var(--border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-color)_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
       <div className="fixed top-0 -left-4 size-96 bg-pink-500 opacity-10 blur-[100px] pointer-events-none" />
