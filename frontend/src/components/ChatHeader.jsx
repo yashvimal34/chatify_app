@@ -36,8 +36,14 @@ function ChatHeader() {
                 </div>
             </div>
 
-            <button onClick={() => setSelectedUser(null)} className="relative z-30">
+            {/* Inline button for md+ */}
+            <button onClick={() => setSelectedUser(null)} className="hidden sm:inline-flex relative z-30">
                 <XIcon className="w-5 h-5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
+            </button>
+
+            {/* Fixed close button for small screens so it's always tappable */}
+            <button onClick={() => setSelectedUser(null)} className="sm:hidden fixed" style={{ right: 12, top: 'calc(env(safe-area-inset-top, 0px) + 8px)', zIndex: 60 }}>
+                <XIcon className="w-6 h-6 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
             </button>
         </div>
     )
