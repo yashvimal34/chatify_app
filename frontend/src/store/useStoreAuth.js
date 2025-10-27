@@ -28,40 +28,51 @@ export const useAuthStore = create((set, get) => ({
         }
     },
 
+    // Inside signup:
     signup: async (data) => {
-        set({ isSigningUp: true })
+        set({ isSigningUp: true });
         try {
             const res = await axiosInstance.post("/auth/signup", data);
             set({ authUser: res.data });
 
-            toast.success("Account Created Successfully!")
+            // Save token before connecting socket
+            if (res.data.token) {
+                localStorage.setItem("jwt", res.data.token);
+            }
+
+            toast.success("Account Created Successfully!");
+
+            // Now connect socket after token exists
             get().connectSocket();
 
         } catch (error) {
-            toast.error(error?.response?.data?.message || "Signup failed. Please try again.")
+            toast.error(error?.response?.data?.message || "Signup failed. Please try again.");
         } finally {
-            set({ isSigningUp: false })
+            set({ isSigningUp: false });
         }
     },
 
+    // Inside login:
     login: async (data) => {
-        set({ isLoggingIn: true })
+        set({ isLoggingIn: true });
         try {
             const res = await axiosInstance.post("/auth/login", data);
             set({ authUser: res.data });
 
-            // Store the token in localStorage
+            // Save token before socket connection
             if (res.data.token) {
-                localStorage.setItem('jwt', res.data.token);
+                localStorage.setItem("jwt", res.data.token);
             }
 
             toast.success("Logged in Successfully");
 
+            // Connect after token exists
             get().connectSocket();
+
         } catch (error) {
-            toast.error(error?.response?.data?.message || "Signup failed. Please try again.")
+            toast.error(error?.response?.data?.message || "Login failed. Please try again.");
         } finally {
-            set({ isLoggingIn: false })
+            set({ isLoggingIn: false });
         }
     },
 

@@ -1,5 +1,4 @@
 import express from 'express';
-import { createServer } from 'http';  // added just
 import path from "path";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js"
