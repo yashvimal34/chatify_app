@@ -41,24 +41,37 @@ export const configureEmailTransport = async () => {
 
 // Try sending with Resend first, fallback to SMTP
 export const sendEmail = async (options) => {
-    try {
-        // First try with Resend
-        const { data, error } = await resendClient.emails.send({
-            from: `${sender.name}<${sender.email}>`,
-            to: options.to,
-            subject: options.subject,
-            html: options.html
-        });
+    // First try with Resend (if API key is available and client is initialized)
+    if (resendClient && ENV.RESEND_API_KEY && sender.email && sender.name) {
+        try {
+            const { data, error } = await resendClient.emails.send({
+                from: `${sender.name}<${sender.email}>`,
+                to: options.to,
+                subject: options.subject,
+                html: options.html
+            });
 
-        if (!error) {
-            console.log('Email sent successfully via Resend:', data);
-            return { success: true, service: 'resend', data };
+            if (!error) {
+                console.log('Email sent successfully via Resend:', data);
+                return { success: true, service: 'resend', data };
+            } else {
+                console.log('Resend returned an error, falling back to SMTP:', error);
+            }
+        } catch (resendError) {
+            console.log('Resend failed, falling back to SMTP:', resendError.message || resendError);
         }
+    } else {
+        console.log('Resend API key or sender info not configured, using SMTP fallback');
+    }
 
-        // If Resend fails, try SMTP
+    // If Resend fails or is not configured, try SMTP
+    try {
         const transport = await configureEmailTransport();
+        const fromEmail = ENV.EMAIL_FROM || sender.email || 'noreply@chatify.com';
+        const fromName = ENV.EMAIL_FROM_NAME || sender.name || 'Chatify';
+        
         const info = await transport.sendMail({
-            from: `${ENV.EMAIL_FROM_NAME}<${ENV.EMAIL_FROM}>`,
+            from: `${fromName}<${fromEmail}>`,
             to: options.to,
             subject: options.subject,
             html: options.html
@@ -68,13 +81,15 @@ export const sendEmail = async (options) => {
 
         // For development, log Ethereal URL to view the email
         if (ENV.NODE_ENV !== 'production') {
-            console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+            const previewUrl = nodemailer.getTestMessageUrl(info);
+            if (previewUrl) {
+                console.log('Preview URL:', previewUrl);
+            }
         }
 
         return { success: true, service: 'smtp', data: info };
-
-    } catch (error) {
-        console.error('Error sending email:', error);
-        throw new Error('Failed to send email');
+    } catch (smtpError) {
+        console.error('Error sending email via SMTP:', smtpError);
+        throw new Error(`Failed to send email: ${smtpError.message || 'Unknown error'}`);
     }
 };

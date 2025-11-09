@@ -47,8 +47,10 @@ export const signup = async (req, res) => {
 
         try {
             await sendWelcomeEmail(savedUser.email, savedUser.fullName, ENV.CLIENT_URL);
+            console.log(`Welcome email sent successfully to ${savedUser.email}`);
         } catch (error) {
-            console.log("Failed to send welcome email", error);
+            console.error("Failed to send welcome email:", error.message || error);
+            // Don't fail the signup if email fails, but log it clearly
         }
 
     } catch (error) {
